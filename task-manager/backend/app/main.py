@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.database import Base, engine
 from app.database import models
@@ -9,6 +10,18 @@ app = FastAPI(
     title="Smart Task Manager API",
     description="REST API for managing tasks with JWT authentication.",
     version="1.0.0",
+)
+
+# CORS Middleware Configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:4200",
+        "http://127.0.0.1:4200"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Create database tables

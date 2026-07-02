@@ -1,26 +1,35 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth-service';
 
 @Component({
   selector: 'app-login-component',
-  imports: [FormsModule],
+  standalone: false,
   templateUrl: './login-component.html',
   styleUrl: './login-component.css',
 })
 export class LoginComponent {
-  username = '';
+  email = '';
   password = '';
+  errorMessage = '';
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
-  onLogin() {
-    this.auth.login({
-      username: this.username,
-      password: this.password
-    }).subscribe((res: any) => {
-      this.auth.saveToken(res.access_token);
-      console.log('Login successful');
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('username', this.email);
+    formData.append('password', this.password);
+
+    this.authService.login(formData).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.detail || 'Login failed';
+      },
     });
   }
 }

@@ -1,0 +1,143 @@
+<div class="dashboard-container">
+
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div>
+      <h1>📋 Smart Task Manager</h1>
+      <p>Organize your work efficiently</p>
+    </div>
+
+    <div class="user-info">
+      <span>👋 Welcome, <strong>{{ authService.currentUser()?.name }}</strong></span>
+      <button class="logout-btn" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Statistics -->
+  <section class="stats-section">
+
+    <div class="stat-card total">
+      <h3>Total Tasks</h3>
+      <h2>{{ tasks.length }}</h2>
+    </div>
+
+    <div class="stat-card pending">
+      <h3>Pending</h3>
+      <h2>{{ tasks.filter(t => t.status === 'Pending').length }}</h2>
+    </div>
+
+    <div class="stat-card completed">
+      <h3>Completed</h3>
+      <h2>{{ tasks.filter(t => t.status === 'Completed').length }}</h2>
+    </div>
+
+    <div class="stat-card high">
+      <h3>High Priority</h3>
+      <h2>{{ tasks.filter(t => t.priority === 'High').length }}</h2>
+    </div>
+
+  </section>
+
+  <!-- Toolbar -->
+  <section class="toolbar">
+
+    <input
+      type="text"
+      placeholder="🔍 Search tasks..."
+    />
+
+    <button class="add-btn" (click)="openTaskDialog()">
+      + Add Task
+    </button>
+
+  </section>
+
+  <!-- Task Section -->
+  <section class="task-list">
+
+    <div class="section-header">
+      <h2>Your Tasks</h2>
+
+      <span class="task-count">
+        {{ tasks.length }} Task(s)
+      </span>
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-box">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <div class="tasks-grid">
+
+      @for (task of tasks; track task.id) {
+
+        <div
+          class="task-card"
+          [class]="'priority-' + task.priority.toLowerCase()">
+
+          <div class="card-header">
+
+            <h3>{{ task.title }}</h3>
+
+            <span class="priority-badge">
+              {{ task.priority }}
+            </span>
+
+          </div>
+
+          <p class="description">
+            {{ task.description }}
+          </p>
+
+          <div class="task-meta">
+
+            <span class="category">
+              📂 {{ task.category }}
+            </span>
+
+            <span class="status">
+              {{ task.status }}
+            </span>
+
+          </div>
+
+          @if (task.due_date) {
+
+            <div class="due-date">
+              📅 {{ task.due_date | date:'mediumDate' }}
+            </div>
+
+          }
+
+        </div>
+
+      } @empty {
+
+        <div class="empty-state">
+
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/7486/7486740.png"
+            width="120"
+            alt="No Tasks">
+
+          <h3>No Tasks Yet</h3>
+
+          <p>Create your first task to get started.</p>
+
+          <button class="add-btn" (click)="openTaskDialog()">
+            + Create Task
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</div>

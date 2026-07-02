@@ -1,0 +1,202 @@
+:host {
+  display: block;
+  font-family: Inter, Roboto, Arial, sans-serif;
+}
+
+/* ==========================
+   Dialog Wrapper
+========================== */
+
+.dialog-wrapper {
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  padding: 6px;
+  border-radius: 16px;
+}
+
+/* ==========================
+   Scroll Area (FIXED)
+========================== */
+
+mat-dialog-content {
+  padding: 10px 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+/* Scrollbar (modern clean) */
+mat-dialog-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+mat-dialog-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+mat-dialog-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+  border: 2px solid #f8fafc;
+}
+
+mat-dialog-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ==========================
+   FORM LAYOUT
+========================== */
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ==========================
+   FORM SECTIONS
+========================== */
+
+.form-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  transition: all 0.2s ease;
+}
+
+.form-section:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Section header */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.section-header mat-icon {
+  color: #2563eb;
+}
+
+.form-section h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #334155;
+}
+
+.section-header p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ==========================
+   GRID ROW
+========================== */
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* ==========================
+   FORM FIELDS
+========================== */
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-mdc-text-field-wrapper {
+  border-radius: 12px !important;
+  transition: all 0.2s ease;
+}
+
+.mat-mdc-text-field-wrapper:hover {
+  background: #f8fafc;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+/* textarea */
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* ==========================
+   ACTION FOOTER (FIXED + MODERN)
+========================== */
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 10px;
+  border-top: 1px solid #e2e8f0;
+  background: #ffffff;
+
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* buttons */
+.dialog-actions button {
+  min-width: 140px;
+  height: 42px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* cancel button */
+button[mat-stroked-button] {
+  border: 1.5px solid #cbd5e1;
+}
+
+/* primary button */
+button[mat-flat-button] {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s ease;
+}
+
+button[mat-flat-button]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.3);
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-section {
+    padding: 14px;
+  }
+
+  .dialog-actions {
+    flex-direction: column;
+  }
+
+  .dialog-actions button {
+    width: 100%;
+  }
+}
