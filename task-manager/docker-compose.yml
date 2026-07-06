@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./sql_app.db # Adjust as needed
+    volumes:
+      - ./backend:/app # For development, mounting source
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000
+      - PORT=4000
+    restart: always
